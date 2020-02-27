@@ -20,10 +20,65 @@
             margin: 10px 10px;
             border-radius: 10px 10px;
         }
+
+        header {
+            background: rgb(54, 90, 112);
+            height: 90px;
+            box-shadow: 3px 0px 22px 0px rgba(0, 0, 0, 0.7);
+        }
+
+        .boton {
+            background: #253547;
+            color: #fff;
+            text-decoration: none !important;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+            margin-right: 10px;
+        }
+
+        h1 {
+            margin-top: 30px;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        ul {
+            position: relative;
+            max-height: 55vh;
+            min-height: 10em;
+            margin: 0;
+            min-width: 94%;
+            display: inline-block;
+        }
+
+        li {
+            padding: 7px 7px;
+            margin: 0;
+            border-left: solid 2px transparent;
+            max-width: 100%;
+            width: auto;
+        }
+
+        li:nth-of-type(2n) {
+            background-color: rgb(242, 242, 242)
+        }
+
+        li:nth-of-type(2n-1) {
+            background-color: rgb(255, 255, 255)
+        }
     </style>
 </head>
 
 <body>
+
+    <header class="navbar-fixed-top">
+        <a href="index.html" class="boton">Menu</a>
+    </header>
 
     <div class="container">
         <div class="row">
@@ -34,7 +89,7 @@
                 <button id="boton" onclick="obtienedatos()">Obtiene datos del navegador</button>
 
                 <p class="datos"></p>
-                <p class="parrafo">Este es un parrafo 2</p>
+                <p class="parrafo">Datos del navegador</p>
 
                 <ul id="navegador">
                     <li></li>
@@ -51,13 +106,13 @@
         var datos = document.getElementsByTagName("li");
 
         function obtienedatos() {
-            
+
             /*COLOCAR DATOS EN LOS ELEMENTOS li*/
-            datos[0].innerHTML = "Nombre del navegador:" + navigator.appCodeName;
-            datos[1].innerHTML = "Nombre del navegador:" + navigator.appVersion;
-            datos[2].innerHTML = "Nombre del navegador:" + navigator.onLine;
-            datos[3].innerHTML = "Nombre del navegador:" + navigator.platform;
- 
+            datos[0].innerHTML = "Nombre del navegador: " + navigator.appCodeName;
+            datos[1].innerHTML = "Versión del navegador: " + navigator.appVersion;
+            datos[2].innerHTML = "Estatus de internet: " + navigator.onLine;
+            datos[3].innerHTML = "Plataforma: " + navigator.platform;
+
             /*CHECAR SI DISPOSITIVO TIENE INTERNET*/
             console.log("Estatus de internet:" + navigator.onLine);
         }

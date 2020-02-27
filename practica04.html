@@ -4,10 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coordenadas</title>
+    <title>Mapa Ubicación</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
+        #box {
+            box-shadow: 0px 21px 27px 1px rgba(0, 0, 0, 0.75);
+        }
+
         header {
             background: rgb(54, 90, 112);
             height: 90px;
@@ -16,27 +20,37 @@
 
         .boton {
             background: #253547;
-            color: #fff !important;
+            color: #fff;
             text-decoration: none !important;
             padding: 15px 30px;
             border-radius: 10px;
             font-size: 14px;
             margin-top: 20px;
-            margin-right: 10px;
-            margin-left: 50px;
-        }
-
-        header .boton {
             float: right;
+            margin-right: 10px;
         }
 
-        h1 {
-            margin: 30px 30px;
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #CFCFCF;
         }
 
-        p {
-            font-size: 18px;
-            margin: 28px 54px;
+        #mapa {
+            background-color: #253547;
+            border: #000 10px solid;
+            width: 660px;
+            height: 420px;
+        }
+
+        button {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            margin: 10px 10px;
+            border-radius: 10px 10px;
+
         }
     </style>
 </head>
@@ -47,30 +61,35 @@
         <a href="index.html" class="boton">Menu</a>
     </header>
 
-    <h1>Haz click para obtener coordenadas</h1>
-
-    <a id="boton" onclick="getLocation()" class="boton">Ver Coordenadas</a>
-
-    <p id="demo"></p>
+    <div class="container-fluid">
+        <div id="box" class="container bg-white">
+            <div class="row m-5">
+                <div class="col-12 p-5">
+                    <h1 class="text-center">Mostrar imagen de mapa con nuestra Ubicacion</h1>
+                    <div id="mapa"></div>
+                    <button onclick="obtieneUbicacion()">Obtener Ubicacion</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        var x = document.getElementById("demo");
-
-        function getLocation() {
-
+        function obtieneUbicacion() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
+                navigator.geolocation.getCurrentPosition(muestraPosicion);
+
             } else {
-                x.innerHTML = "No tiene geolocalizacion";
+
             }
         }
 
-        function showPosition(position) {
-            x.innerHTML = "Latitud: " + position.coords.latitude + "<br>" + "Longitud: " + position.coords.longitude;
+        function muestraPosicion(posicion) {
+            var coordenadas = posicion.coords.latitude + "," + posicion.coords.longitude;
+            console.log(coordenadas);
+            var imagen = "https://maps.googleapis.com/maps/api/staticmap?center=" + coordenadas + "&zoom=14&size=900x400&key=AIzaSyADjOfdGIg-7JiqjoTstMN9el4g-nLhxxA";
+            document.getElementById("mapa").innerHTML = "<img src=" + imagen + ">";
         }
-
     </script>
-
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
