@@ -5,10 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigator</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+
+        }
+        
         .parrafo {
             font-size: 25px;
         }
@@ -106,7 +114,6 @@
         var datos = document.getElementsByTagName("li");
 
         function obtienedatos() {
-
             /*COLOCAR DATOS EN LOS ELEMENTOS li*/
             datos[0].innerHTML = "Nombre del navegador: " + navigator.appCodeName;
             datos[1].innerHTML = "Versión del navegador: " + navigator.appVersion;

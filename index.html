@@ -15,16 +15,10 @@
         }
 
         .contenedor {
-            width: 90%;
+            width: 80%;
             max-width: 1280px;
             /*CON ESTA PROPIEDAD CENTRAMOS EL CONTENIDO*/
             margin: auto;
-        }
-
-        a {
-            color: rgb(73, 73, 73);
-            font-weight: bold;
-            text-decoration: none;
         }
 
         header {
@@ -49,36 +43,66 @@
             text-align: center;
         }
 
-        .sidebar ul {
+        .numberlist ol {
+            /*CONTADOR DE LOS LI*/
+            counter-reset: li;
+            list-style: none;
+            font: 15px;
+            padding: 0;
+            margin-bottom: 4em;
+        }
+
+        .numberlist ol ol {
+            margin: 0 0 0 2em;
+        }
+
+        .numberlist a {
             position: relative;
-            max-height: 55vh;
-            min-height: 10em;
-            margin: 0;
-            min-width: 94%;
-            display: inline-block;
+            display: block;
+            padding: 13px 40px;
+            margin: .5em 0;
+            background: #FFF;
+            color: #444;
+            font-weight: bold;
+            text-decoration: none;
+            -moz-border-radius: .3em;
+            -webkit-border-radius: .3em;
+            border-radius: .3em;
         }
 
-        .list li {
-            padding: 7px 7px;
-            margin: 0;
-            border-left: solid 2px transparent;
-            max-width: 100%;
-            width: auto;
+        .numberlist a:hover {
+            background: #8FA5D0;
         }
 
-        .list li:nth-of-type(2n) {
-            background-color: rgb(242, 242, 242)
+        /*CONTENIDO ANTES DE SU ELEMENTO*/
+        .numberlist a:before {
+            content: counter(li);
+            counter-increment: li;
+            position: absolute;
+            left: -1.3em;
+            top: 35%;
+            margin-top: -1.3em;
+            background: #4462A0;
+            height: 3em;
+            width: 3em;
+            line-height: 3em;
+            border: .3em solid #fff;
+            text-align: center;
+            font-weight: bold;
+            -moz-border-radius: 2em;
+            -webkit-border-radius: 2em;
+            border-radius: 2em;
+            color: #FFF;
         }
 
-        .list li:nth-of-type(2n-1) {
-            background-color: rgb(255, 255, 255)
-        }
-
-        @media(max-width: 557px) {
+        @media(max-width: 625px) {
             h1 {
                 margin-top: 50px;
             }
 
+            .contenedor .numberlist {
+                margin-top: 50px;
+            }
         }
     </style>
 </head>
@@ -94,15 +118,15 @@
     </header>
 
     <div class="contenedor">
-        <h1>Practicas</h1>
-        <div class="sidebar">
-            <ul class="list">
-                <li><a href="practica01.html">Practica 1: Google Maps con Bootstrap</a></li>
-                <li><a href="practica02.html">Practica 2: Navigator</a></li>
-                <li><a href="practica03.html">Practica 3: Coordenadas</a></li>
-                <li><a href="practica04.html">Practica 4: Imagen Mapa</a></li>
-                <li><a href="practica05.html">Practica 5: InfoWindow</a></li>
-            </ul>
+        <div class="numberlist">
+            <ol>
+                <li><a href="practica01.html">Google Maps con Bootstrap</a></li>
+                <li><a href="practica02.html">Navigator</a></li>
+                <li><a href="practica03.html">Coordenadas</a></li>
+                <li><a href="practica04.html">Imagen Mapa</a></li>
+                <li><a href="practica05.html">InfoWindow</a></li>
+                <li><a href="firebase/practica01.html">Firebase </a></li>
+            </ol>
         </div>
     </div>
 

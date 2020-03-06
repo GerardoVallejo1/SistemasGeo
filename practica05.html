@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Info Window</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
@@ -15,7 +16,10 @@
         }
 
         body {
-            background: #CFCFCF;
+            padding: 0;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #E5E5E5;
         }
 
         #box {
@@ -74,6 +78,7 @@
                 });
             }
         }*/
+
 
         function initMap() {
             var map = new google.maps.Map(document.getElementById("map"), { center: { lat: 37.334844, lng: -122.009006 }, zoom: 14 });
