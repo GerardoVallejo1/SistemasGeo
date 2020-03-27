@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistemas Geo</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #E5E5E5;
+        }
+
+        .contenedor {
+            width: 80%;
+            max-width: 1280px;
+            /*CON ESTA PROPIEDAD CENTRAMOS EL CONTENIDO*/
+            margin: auto;
+        }
+
+        header {
+            height: 90px;
+            box-shadow: 3px 0px 22px 0px rgba(0, 0, 0, 0.7);
+        }
+
+        .menu {
+            background: #fff;
+            padding: 9px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 1px 1px 8px #ccc;
+            z-index: 1;
+        }
+
+        header .logo {
+            font-size: 23px;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+        }
+
+        .numberlist ol {
+            /*CONTADOR DE LOS LI*/
+            counter-reset: li;
+            list-style: none;
+            font: 15px;
+            padding: 0;
+            margin-bottom: 4em;
+        }
+
+        .numberlist ol ol {
+            margin: 0 0 0 2em;
+        }
+
+        .numberlist a {
+            position: relative;
+            display: block;
+            padding: 13px 40px;
+            margin: .5em 0;
+            background: #FFF;
+            color: #444;
+            font-weight: bold;
+            text-decoration: none;
+            -moz-border-radius: .3em;
+            -webkit-border-radius: .3em;
+            border-radius: .3em;
+        }
+
+        .numberlist a:hover {
+            background: #8FA5D0;
+        }
+
+        /*CONTENIDO ANTES DE SU ELEMENTO*/
+        .numberlist a:before {
+            content: counter(li);
+            counter-increment: li;
+            position: absolute;
+            left: -1.3em;
+            top: 35%;
+            margin-top: -1.3em;
+            background: #4462A0;
+            height: 3em;
+            width: 3em;
+            line-height: 3em;
+            border: .3em solid #fff;
+            text-align: center;
+            font-weight: bold;
+            -moz-border-radius: 2em;
+            -webkit-border-radius: 2em;
+            border-radius: 2em;
+            color: #FFF;
+        }
+
+        @media(max-width: 625px) {
+            h1 {
+                margin-top: 50px;
+            }
+
+            .contenedor .numberlist {
+                margin-top: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="menu">
+            <div class="contenedor">
+                <p class="logo">Desarrollo de Sistemas Geo-referenciados</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="contenedor">
+        <div class="numberlist">
+            <ol>
+                <li><a href="practica01.html">Google Maps con Bootstrap</a></li>
+                <li><a href="practica02.html">Navigator</a></li>
+                <li><a href="practica03.html">Coordenadas</a></li>
+                <li><a href="practica04.html">Imagen Mapa</a></li>
+                <li><a href="practica05.html">InfoWindow</a></li>
+                <li><a href="practica06.html">Localización Tiempo Real</a></li>
+                <li><a href="firebase/practica01.html">Firebase </a></li>
+                <li><a href="firebase/practica02.html">Firebase CRUD</a></li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+
+</html>
