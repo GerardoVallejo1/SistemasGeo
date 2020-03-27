@@ -26,6 +26,8 @@
             lng: 0
         }
 
+        
+
         var propiedades = {
             center: coordenadas,
             zoom: 2
@@ -62,8 +64,18 @@
                                                     content: información
                                                 });
 
+                                                var icono = {
+                                                    url: "https://cdn.pixabay.com/photo/2020/02/26/08/41/corona-4881111_1280.png",
+                                                    scaledSize: new google.maps.Size(50,50),
+                                                    origin: new google.maps.Point(0,0),
+                                                    anchor: new google.maps.Point(0,0)
+                                                }
+
+                                              
+
                                                 let marker = new google.maps.Marker({
                                                     map: map,
+                                                    icon: icono,
                                                     position: new google.maps.LatLng(marcador.CapitalLatitude, marcador.CapitalLongitude),
                                                     title: marcador.CountryName + registro.cases
                                                 });
