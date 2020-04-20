@@ -40,7 +40,30 @@
 
 
 </body>
-<script src="index.js"></script>
+<script>
+    var coordenadas = {
+        lat: 21.077771,
+        lng: -101.601164
+    };
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const idioma = urlParams.get("idioma");
+    document.getElementById("idioma").value = idioma;
+
+    var script = document.createElement("script");
+    script.src =
+        "https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback=initMap&language=" +
+        idioma;
+    document.head.appendChild(script);
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: coordenadas,
+            zoom: 3
+        });
+    }
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
