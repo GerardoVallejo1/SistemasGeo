@@ -15,22 +15,40 @@
             padding: 0;
             margin: 0;
         }
+        header {
+            background: rgb(54, 90, 112);
+            height: 90px;
+            box-shadow: 3px 0px 22px 0px rgba(0, 0, 0, 0.7);
+        }
+
+        .boton {
+            background: #253547;
+            color: #fff;
+            text-decoration: none !important;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+            margin-right: 10px;
+        }
     </style>
 </head>
 
 <body>
 
-    <div id="map">
+    <header class="navbar-fixed-top">
+        <a href="index.html" class="boton">Menu</a>
+    </header>
 
+    <div id="map">
     </div>
 
     <script>
-
         var coordenadas = {
             lat: 0,
             lng: 0
         }
-
         var propiedades = {
             center: coordenadas,
             zoom: 20
@@ -72,12 +90,8 @@
                 /*CENTRAMOS EL MAPA*/
                 map.setCenter(pos);
             });
-
-
         }
-
     </script>
-
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback&callback=initMap"
         async defer></script>
