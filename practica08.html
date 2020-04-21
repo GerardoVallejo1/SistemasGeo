@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-        html,body {
+        html,
+        body {
             margin: 0px;
             padding: 0px;
             font-family: 'Poppins', sans-serif;
@@ -45,6 +46,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <header class="navbar-fixed-top">
@@ -54,59 +56,68 @@
     <div class="container-fluid">
         <div id="box" class="container bg-white">
             <div class="row text-center m-2">
-                <div class="col-12">
-                    <h1 class="text-center">Google Maps Idioma</h1>
-                </div>
-                <div class="col-12">
-                    <select id="idioma" name="idioma" class="form-control" onchange="this.form.submit()">
-                        <option value="es">Español</option>
-                        <option value="en">Inglés</option>
-                        <option value="it">Italiano</option>
-                        <option value="zh">Chino</option>
-                        <option value="ja">Japones</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div id="mapa"></div>
-                </div>
+                <form action="">
+                    <div class="container-fluid">
+                        <div class="container">
+                            <div class="row text-center m-2">
+                                <div class="col-6">
+                                    <h1 class="text-center">Google Maps Idioma</h1>
+                                </div>
+                                <div class="col-6">
+                                    <select id="idioma" name="idioma" class="form-control"
+                                        onchange="this.form.submit()">
+                                        <option value="es">Español</option>
+                                        <option value="en">Inglés</option>
+                                        <option value="it">Italiano</option>
+                                        <option value="zh">Chino</option>
+                                        <option value="ja">Japones</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div id="mapa"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
 
-    <script>
-        var coordenadas = {
-            lat: 0, lng: 0
-        }
+        <script>
+            var coordenadas = {
+                lat: 0, lng: 0
+            }
 
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const idioma = urlParams.get('idioma');
-        document.getElementById("idioma").value = idioma;
-        var script = document.createElement('script');
-        script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback=initMap&language=' + idioma;
-        document.head.appendChild(script);
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const idioma = urlParams.get('idioma');
+            document.getElementById("idioma").value = idioma;
+            var script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback=initMap&language=' + idioma;
+            document.head.appendChild(script);
 
-        function initMap() {
-            var map = new google.maps.Map(
-                document.getElementById('mapa'),
-                {
-                    center: coordenadas,
-                    zoom: 3
-                }
-            );
-        }
-    </script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback=initMap"
-        type="text/javascript"></script>
+            function initMap() {
+                var map = new google.maps.Map(
+                    document.getElementById('mapa'),
+                    {
+                        center: coordenadas,
+                        zoom: 3
+                    }
+                );
+            }
+        </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback=initMap"
+            type="text/javascript"></script>
 
 </body>
+
 </html>
