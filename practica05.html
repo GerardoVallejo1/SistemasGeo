@@ -5,57 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Info Window</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        #map {
-            width: 100%;
-            height: 500px;
-            margin-top: 40px;
-        }
-
-        body {
-            padding: 0;
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: #E5E5E5;
-        }
-
-        #box {
-            box-shadow: 0px 21px 27px 1px rgba(0, 0, 0, 0.75);
-        }
-
-        header {
-            background: rgb(54, 90, 112);
-            height: 90px;
-            box-shadow: 3px 0px 22px 0px rgba(0, 0, 0, 0.7);
-        }
-
-        .boton {
-            background: #253547;
-            color: #fff;
-            text-decoration: none !important;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-top: 20px;
-            float: right;
-            margin-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="style2.css">
 </head>
 
 <body>
 
     <header class="navbar-fixed-top">
-        <a href="index.html" class="boton">Menu</a>
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="index.html">Regresar</a></button>
     </header>
 
     <div class="container-fluid">
         <div id="box" class="container bg-white">
-            <div class="row m-5">
-                <div class="col-12 p-5">
+            <div class="row m-3">
+                <div class="col-12">
                     <h1 class="text-center">Google Maps InfoWindow</h1>
                     <div id="map"></div>
                 </div>
@@ -78,8 +43,7 @@
                 });
             }
         }*/
-
-
+        
         function initMap() {
             var map = new google.maps.Map(document.getElementById("map"), { center: { lat: 37.334844, lng: -122.009006 }, zoom: 14 });
             informacion = new google.maps.InfoWindow;
@@ -93,8 +57,6 @@
             map.setCenter(pos);
         }
     </script>
-
-
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

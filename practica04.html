@@ -4,78 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Ubicación</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <title>Imagen Mapa</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        #box {
-            box-shadow: 0px 21px 27px 1px rgba(0, 0, 0, 0.75);
-        }
-
-        body {
-            padding: 0;
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: #E5E5E5;
-        }
-
-        header {
-            background: rgb(54, 90, 112);
-            height: 90px;
-            box-shadow: 3px 0px 22px 0px rgba(0, 0, 0, 0.7);
-        }
-
-        .boton {
-            background: #253547;
-            color: #fff;
-            text-decoration: none !important;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-top: 20px;
-            float: right;
-            margin-right: 10px;
-        }
-
-        body {
-            padding: 0;
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: #CFCFCF;
-        }
-
-        #mapa {
-            background-color: #253547;
-            border: #000 10px solid;
-            width: 660px;
-            height: 420px;
-        }
-
-        button {
-            background-color: #000;
-            color: #fff;
-            padding: 10px 20px;
-            margin: 10px 10px;
-            border-radius: 10px 10px;
-
-        }
-    </style>
+    <link rel="stylesheet" href="style2.css">
 </head>
 
 <body>
 
     <header class="navbar-fixed-top">
-        <a href="index.html" class="boton">Menu</a>
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="index.html">Regresar</a></button>
     </header>
 
     <div class="container-fluid">
         <div id="box" class="container bg-white">
-            <div class="row m-5">
-                <div class="col-12 p-5">
-                    <h1 class="text-center">Mostrar imagen de mapa con nuestra Ubicacion</h1>
+            <div class="row">
+                <div class="col-12" style="text-align: center;">
+                    <h1 class="text-center">Imagen de mapa con nuestra Ubicacion</h1>
                     <div id="mapa"></div>
-                    <button onclick="obtieneUbicacion()">Obtener Ubicacion</button>
+                    <button type="button" onclick="obtieneUbicacion()" class="btn btn-outline-info"
+                        style="margin: 10px 0 10px 0;"><a>Obtener Ubicación</a></button>
                 </div>
             </div>
         </div>
@@ -85,9 +34,7 @@
         function obtieneUbicacion() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(muestraPosicion);
-
             } else {
-
             }
         }
 

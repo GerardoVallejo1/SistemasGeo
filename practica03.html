@@ -5,67 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coordenadas</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        body {
-            padding: 0;
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: #E5E5E5;
-        }
-        
-        header {
-            background: rgb(54, 90, 112);
-            height: 90px;
-            box-shadow: 3px 0px 22px 0px rgba(0, 0, 0, 0.7);
-        }
-
-        .boton {
-            background: #253547;
-            color: #fff !important;
-            text-decoration: none !important;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-top: 20px;
-            margin-right: 10px;
-            margin-left: 50px;
-        }
-
-        header .boton {
-            float: right;
-        }
-
-        h1 {
-            margin: 30px 30px;
-        }
-
-        p {
-            font-size: 18px;
-            margin: 28px 54px;
-        }
-    </style>
+    <link rel="stylesheet" href="style2.css">
 </head>
 
 <body>
 
     <header class="navbar-fixed-top">
-        <a href="index.html" class="boton">Menu</a>
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="index.html">Regresar</a></button>
     </header>
 
-    <h1>Haz click para obtener coordenadas</h1>
-
-    <a id="boton" onclick="getLocation()" class="boton">Ver Coordenadas</a>
-
-    <p id="demo"></p>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h1>Haz click para obtener coordenadas</h1>
+                <p>
+                    <button class="btn btn-outline-info" type="button" onclick="getLocation()" data-toggle="collapse"
+                        data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Ver coordenadas
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <p id="demo"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         var x = document.getElementById("demo");
 
         function getLocation() {
-
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
             } else {
@@ -76,7 +50,6 @@
         function showPosition(position) {
             x.innerHTML = "Latitud: " + position.coords.latitude + "<br>" + "Longitud: " + position.coords.longitude;
         }
-
     </script>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -88,8 +61,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback=initMap"
-        async defer></script>
 </body>
 
 </html>

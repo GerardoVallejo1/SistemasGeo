@@ -5,73 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Maps Clustering</title>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        html,body {
-            margin: 0px;
-            padding: 0px;
-            font-family: 'Poppins', sans-serif;
-            background: #E5E5E5;
-        }
-
-        #mapa {
-            margin-bottom: 13px;
-            width: 100%;
-            height: 400px;
-        }
-
-        #box {
-            box-shadow: 0px 21px 27px 1px rgba(0, 0, 0, 0.75);
-        }
-
-        header {
-            background: rgb(54, 90, 112);
-            height: 90px;
-            box-shadow: 3px 0px 22px 0px rgba(0, 0, 0, 0.7);
-        }
-
-        .boton {
-            background: #253547;
-            color: #fff;
-            text-decoration: none !important;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-top: 20px;
-            float: right;
-            margin-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="style2.css">
 </head>
 
 <body>
 
     <header class="navbar-fixed-top">
-        <a href="index.html" class="boton">Menu</a>
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="index.html">Regresar</a></button>
     </header>
 
     <div class="container-fluid">
         <div id="box" class="container bg-white">
-            <div class="row m-3">
+            <div class="row m-1">
                 <div class="col-12">
                     <h1 class="text-center">Google Maps Clustering</h1>
-                    <div id="mapa"></div>
+                    <div id="map"></div>
                 </div>
             </div>
-            <div class="row text-center p-2">
-                <div class="col-3">
-                    <button class="btn btn-primary" id="btnroadmap">roadmap</button>
+            <div id="clustering" class="row text-center" style="margin: 0;">
+                <div class="col-6 col-sm-3">
+                    <button class="btn btn-outline-primary btn-lg" id="btnroadmap">roadmap</button>
                 </div>
-                <div class="col-3">
-                    <button class="btn btn-warning" id="btnsatellite">satellite</button>
+                <div class="col-6 col-sm-3">
+                    <button class="btn btn-outline-info btn-lg" id="btnsatellite">satellite</button>
                 </div>
-                <div class="col-3">
-                    <button class="btn btn-danger" id="btnhybrid">hybrid</button>
+                <div class="col-6 col-sm-3">
+                    <button class="btn btn-outline-danger btn-lg" id="btnhybrid">hybrid</button>
                 </div>
-                <div class="col-3">
-                    <button class="btn btn-success" id="btnterrain">terrain</button>
+                <div class="col-6 col-sm-3">
+                    <button class="btn btn-outline-success btn-lg" id="btnterrain">terrain</button>
                 </div>
             </div>
         </div>
@@ -108,9 +73,8 @@
         }
 
         function initMap() {
-
             var map = new google.maps.Map(
-                document.getElementById('mapa'),
+                document.getElementById('map'),
                 {
                     center: coordenadas,
                     zoom: 3,
@@ -118,14 +82,12 @@
                 }
             );
             //var marcador = new google.maps.Marker({ position: coordenadas, map: map });
-
             var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             var cuenta = 1;
             var marcadores = [];
 
             localidades.forEach(localidad => {
                 console.log(localidad);
-
                 let marcador = new google.maps.Marker({
                     map: map,
                     position: localidad,
@@ -171,4 +133,5 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback=initMap"
         type="text/javascript"></script>
 </body>
+
 </html>

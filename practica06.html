@@ -4,33 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tiempo Real</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style2.css">
     <style>
         #map {
-            height: 100vh;
+            height: 90vh !important;
         }
 
         body {
-            height: 100%;
-            padding: 0;
-            margin: 0;
-        }
-        header {
-            background: rgb(54, 90, 112);
-            height: 90px;
-            box-shadow: 3px 0px 22px 0px rgba(0, 0, 0, 0.7);
-        }
-
-        .boton {
-            background: #253547;
-            color: #fff;
-            text-decoration: none !important;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-top: 20px;
-            float: right;
-            margin-right: 10px;
+            height: 100% !important;
         }
     </style>
 </head>
@@ -38,10 +22,11 @@
 <body>
 
     <header class="navbar-fixed-top">
-        <a href="index.html" class="boton">Menu</a>
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="index.html">Regresar</a></button>
     </header>
 
-    <div id="map">
+    <div id="map" style="width: 100% !important">
     </div>
 
     <script>
@@ -55,14 +40,12 @@
         }
 
         function initMap() {
-
             map = new google.maps.Map(document.getElementById("map"), propiedades);
-
             var icono = {
                 url: "https://upload.wikimedia.org/wikipedia/commons/9/98/Flashspot.gif",
-                scaledSize: new google.maps.Size(50,50),
-                origin: new google.maps.Point(0,0),
-                anchor: new google.maps.Point(0,0)
+                scaledSize: new google.maps.Size(50, 50),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(0, 0)
             }
 
             var marker = new google.maps.Marker({
@@ -72,9 +55,9 @@
             });
 
             if (navigator.geolocation) {
-                setInterval(function(){
+                setInterval(function () {
                     moverPosicion(marker)
-                },3000);
+                }, 3000);
             }
         }
 
@@ -92,6 +75,15 @@
             });
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback&callback=initMap"
         async defer></script>
