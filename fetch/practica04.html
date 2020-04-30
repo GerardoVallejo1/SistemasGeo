@@ -5,52 +5,34 @@
     <title>Fetch 4</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <style>
-        #map {
-            height: 100%;
-        }
-
-        html,body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background: #E5E5E5;
-        }
-
-        header {
-            background: rgb(54, 90, 112);
-            height: 90px;
-            box-shadow: 3px 0px 22px 0px rgba(0, 0, 0, 0.7);
-        }
-
-        .boton {
-            background: #253547;
-            color: #fff;
-            text-decoration: none !important;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-top: 20px;
-            float: right;
-            margin-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style2.css">
 </head>
 
 <body>
 
     <header class="navbar-fixed-top">
-        <a href="../index-2.html" class="boton">Menu</a>
-    </header>
-    <div id="map"></div>
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="../index-3.html">Regresar</a></button>
+      </header>
+
+    <div class="container-fluid">
+        <div id="box" class="container bg-white">
+            <div class="row m-1">
+                <div class="col-12">
+                    <h1 class="text-center">Mapa con casos de COVID-19</h1>
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         var coordenadas = {
             lat: 0,
             lng: 0
         }
-
-
 
         var propiedades = {
             center: coordenadas,
@@ -58,44 +40,28 @@
         }
 
         function initMap() {
-
-
             fetch('paises.json')
                 .then(function (response) {
-
                     response.json().then(function (datos) {
-
                         const map = new google.maps.Map(document.getElementById('map'), propiedades);
-
                         console.log(datos);
-
                         datos.forEach(marcador => {
-
-
                             fetch('https://corona.lmao.ninja/v2/countries')
                                 .then(function (respuesta) {
-
                                     respuesta.json().then(function (datospaises) {
-
                                         datospaises.forEach(registro => {
-
-
                                             if (registro.country == marcador.CountryName) {
-
                                                 var información = "<strong>País:</strong> " + registro.country + "<br><strong>Casos:</strong> " + registro.cases + "<br><strong>Nuevos hoy:</strong> " + registro.todayCases + "<br><strong>Muertes:</strong> " + registro.deaths + "<br><strong>Muertes Hoy:</strong> " + registro.todayDeaths + "<br><strong>Recuperados:</strong> " + registro.recovered + "<br><strong>Activos:</strong> " + registro.active + "<br><strong>Críticos:</strong> " + registro.critical + "<br><strong>Casos por millón:</strong> " + registro.casesPerOneMillion;
-
                                                 var infowindow = new google.maps.InfoWindow({
                                                     content: información
                                                 });
 
                                                 var icono = {
-                                                    url: "https://cdn.pixabay.com/photo/2020/02/26/08/41/corona-4881111_1280.png",
+                                                    url: "https://repaircafe.org/es/wp-content/uploads/sites/5/2020/03/corona-4881111_1280.png",
                                                     scaledSize: new google.maps.Size(50, 50),
                                                     origin: new google.maps.Point(0, 0),
                                                     anchor: new google.maps.Point(0, 0)
                                                 }
-
-
 
                                                 let marker = new google.maps.Marker({
                                                     map: map,
@@ -122,6 +88,15 @@
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback=initMap"
         type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

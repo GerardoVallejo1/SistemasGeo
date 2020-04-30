@@ -7,16 +7,7 @@
     <title>Tiempo Real</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="style2.css">
-    <style>
-        #map {
-            height: 90vh !important;
-        }
-
-        body {
-            height: 100% !important;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style2.css">
 </head>
 
 <body>
@@ -26,7 +17,15 @@
         <button type="button" class="btn btn-outline-light"><a href="index.html">Regresar</a></button>
     </header>
 
-    <div id="map" style="width: 100% !important">
+    <div class="container-fluid">
+        <div id="box" class="container bg-white">
+            <div class="row m-1">
+                <div class="col-12">
+                    <h1 class="text-center">Localización en tiempo real</h1>
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>

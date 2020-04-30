@@ -5,58 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fetch 1</title>
-    <style>
-        body {
-            padding: 0;
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: #E5E5E5;
-        }
-
-        header {
-            background: rgb(54, 90, 112);
-            height: 90px;
-            box-shadow: 3px 0px 22px 0px rgba(0, 0, 0, 0.7);
-        }
-
-        .boton {
-            background: #253547;
-            color: #fff;
-            text-decoration: none !important;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-top: 20px;
-            float: right;
-            margin-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style2.css">
 </head>
 
 <body>
 
     <header class="navbar-fixed-top">
-        <a href="../index-2.html" class="boton">Menu</a>
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="../index-3.html">Regresar</a></button>
     </header>
 
-    <div id="paises"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <ul class="list-group" id="paises">
+                </ul>
+            </div>
+        </div>
+    </div>
 
     <script>
         var paises = document.getElementById("paises");
         fetch('datos.json')
             .then(function (response) {
-
                 response.json().then(function (datos) {
-
                     datos.forEach(registro => {
                         console.log(registro.country);
-                        let nombre = document.createElement("p");
-                        nombre.textContent = "País: " + registro.country + ", casos:" + registro.cases;
+                        let nombre = document.createElement("li");
+                        nombre.className = "list-group-item";
+                        nombre.textContent = "<strong>País:</strong> " + registro.country + ", <strong>casos:</strong> " + registro.cases;
                         paises.appendChild(nombre);
                     });
                 });
             });
     </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
