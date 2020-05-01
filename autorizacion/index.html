@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ULSA Eats</title>
     <!-- Bootstrap -->
+    <script src="https://kit.fontawesome.com/200375b2ae.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -17,34 +18,219 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style3.css">
+
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm bg-light navbar-light" style="box-shadow: -2px -3px 42px -8px rgba(0,0,0,0.75);">
         <a class="navbar-brand" href="#">ULSA Eats</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mi Cuenta</a>
+                    <a class="nav-link logged-in" href="#" data-toggle="modal" data-target="#micuenta">Mi Cuenta</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Salir</a>
+                    <a class="nav-link logged-in" href="#" id="salir">Salir</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Ingresar</a>
+                    <a class="nav-link logged-out" href="#" data-toggle="modal" data-target="#miingresa">Ingresar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Registrarte</a>
+                    <a class="nav-link logged-out" href="#" data-toggle="modal" data-target="#miregistro">Registrarte</a>
                 </li>
             </ul>
         </div>
     </nav>
+
+    <!-- The Modal ingresar-->
+    <div class="modal fade" id="miingresa">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body" style="padding:0;">
+                    <div class="login100-form-title" style="background-image: url(imagenes/pizza-login.jpg);">
+                        <span class="inicio-titulo-1">
+                            Inicia Sesión
+                        </span>
+                    </div>
+                    <div class="inicio-form">
+                        <div class="card" style="width: 100%; text-align: center;">
+                            <!--Card content-->
+                            <div class="card-body px-lg-5 pt-0">
+                                <!-- Form -->
+                                <form id="formaingresar">
+                                    <!-- Email -->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        </div>
+                                        <input type="email" class="form-control" id="correo" placeholder="Correo"
+                                            required>
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                        </div>
+                                        <input type="password" class="form-control" id="contrasena"
+                                            placeholder="Contraseña" required>
+                                    </div>
+                                    <div class="container-fluid" id="login">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6">
+                                                <button type="submit" name="button" class="btn btn-outline-secondary"><a
+                                                        class="btn btn-block btn-social btn-google">
+                                                        <i class="fas fa-sign-in-alt"></i> Login
+                                                    </a></button>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <button type="button" onclick="entrarGoogle()" class="btn btn-outline-danger"><a
+                                                        class="btn btn-block btn-social btn-google">
+                                                        <i class="fa fa-google"></i> Google
+                                                    </a></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p class="error text-danger"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal registro-->
+    <div class="modal fade" id="miregistro">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body" style="padding:0;">
+                    <div class="login100-form-title" style="background-image: url(imagenes/food.png);">
+                        <span class="inicio-titulo-1">
+                            Regístrate
+                        </span>
+                    </div>
+                    <div class="inicio-form">
+                        <div class="card" style="width: 100%; text-align: center;">
+                            <!--Card content-->
+                            <div class="card-body px-lg-5 pt-0">
+                                <!-- Form -->
+                                <form id="formaregistro">
+                                    <!-- Email -->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="rnombre" placeholder="Nombre"
+                                            required>
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        </div>
+                                        <input type="email" class="form-control" id="rcorreo" placeholder="Correo"
+                                            required>
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                        </div>
+                                        <input type="password" class="form-control" id="rcontrasena"
+                                            placeholder="Contraseña" required>
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                        </div>
+                                        <input type="number" class="form-control" id="rtelefono" placeholder="Teléfono"
+                                            required>
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fas fa-map"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="rdireccion" placeholder="Dirección"
+                                            required>
+                                    </div>
+                                    <div class="container-fluid" id="login">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button type="submit" name="button" class="btn btn-outline-secondary"><a
+                                                        class="btn btn-block btn-social btn-google">
+                                                        <i class="fas fa-sign-in-alt"></i> Sign In
+                                                    </a></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p class="error text-danger"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal mi cuenta-->
+    <div class="modal fade" id="micuenta">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body" style="padding:0;">
+                    <div class="login100-form-title" style="background-image: url(imagenes/cuenta.jpg);">
+                        <span class="inicio-titulo-1">
+                            Mi cuenta
+                        </span>
+                    </div>
+                    <div class="inicio-form">
+                        <div class="card" style="width: 100%; text-align: center;">
+                            <!--Card content-->
+                            <div class="card-body px-lg-5 pt-0 datosdelacuenta">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fondo">
+        <div class="container-fluid pizzas " style="padding: 15px 80px 20px 80px; ">
+            <h1 class="titulo-fondo" style="text-align: center;
+            font-size: 46px;
+            color: #fff;
+            margin-top: 205px;
+            font-weight: 600;">Disfruta de los mejores productos!</h1>
+            <div class="row text-center" >
+                <div class="col-12">
+                    <div class="card-deck" id="listadeplatillos">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
@@ -65,6 +251,9 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
     </script>
     <script src="scripts/autorizacion.js"></script>
     <script src="scripts/index.js"></script>

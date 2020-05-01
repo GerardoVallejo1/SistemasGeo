@@ -38,6 +38,18 @@ i, span {
     display: inline-block;
 }
 
+.btn-secondary {
+    color: #fff !important;
+    background-color: #526B89 !important;
+    border-color: #526B89 !important;
+}
+
+.btn-secondary:hover {
+    color: #fff !important;
+    background-color: #41556C !important;
+    border-color: #41556C !important;
+}
+
 /*LI ELEMENTOS */
 .numberlist ol {
     /*CONTADOR DE LOS LI*/
@@ -55,7 +67,7 @@ i, span {
 .numberlist a {
     position: relative;
     display: block;
-    padding: 13px 40px 13px 60px;
+    padding: 10px 40px 10px 60px;
     margin: .5em 0;
     background: #FFF;
     color: #444;
@@ -67,7 +79,7 @@ i, span {
 }
 
 .numberlist a:hover {
-    background: #8FA5D0 !important;
+    background: #6684A9 !important;
     color: #fff !important;
 }
 
@@ -79,18 +91,22 @@ i, span {
     position: absolute;
     left: -1.3em;
     top: 35%;
-    margin-top: -20px;
-    background: #4462A0 !important;
-    height: 55px;
-    width: 55px;
-    line-height: 3em;
-    border: .3em solid #fff;
+    margin-top: -17px;
+    background: #fff !important;
+    height: 50px;
+    width: 50px;
+    line-height: 39px;
+    border: 0.3em solid #526B89;
     text-align: center;
     font-weight: bold;
     -moz-border-radius: 2em;
     -webkit-border-radius: 2em;
-    border-radius: 2em;
-    color: #FFF;
+    border-radius: 3em;
+    color: #526B89;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
     
 }
 
@@ -104,7 +120,7 @@ i, span {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #7386D5;
+    background: #526B89;
     color: #fff;
     transition: all 0.3s;
 }
@@ -162,7 +178,7 @@ i, span {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6d7fcc;
+    background: #41556C;
 }
 
 #sidebar .sidebar-header strong {
@@ -178,7 +194,7 @@ i, span {
 }
 
 #sidebar ul li a:hover {
-    color: #7386D5 !important;
+    color: #526B89 !important;
     background: #fff !important;
 }
 
@@ -189,7 +205,7 @@ i, span {
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #41556C;
 }
 
 a[data-toggle="collapse"] {
@@ -207,7 +223,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #41556C;
 }
 
 ul.CTAs {
@@ -224,12 +240,12 @@ ul.CTAs a {
 
 a.download {
     background: #fff;
-    color: #7386D5;
+    color: #526B89;
 }
 
 a.article,
 a.article:hover {
-    background: #6d7fcc !important;
+    background: #41556C!important;
     color: #fff !important;
 }
 
