@@ -1,6 +1,7 @@
 const listaloggedout = document.querySelectorAll('.logged-out');
 const listaloggedin = document.querySelectorAll('.logged-in');
 const datosdelacuenta = document.querySelector('.datosdelacuenta');
+const mapaamigos = document.querySelector('.mapaamigos');
 const titulo = document.querySelector('.titulo-fondo');
 const fondo = document.querySelector('.fondo');
 
@@ -17,6 +18,7 @@ const configurarMenu = (user) => {
                     <li class="list-group-item">Correo: ${user.email}</li>
                     <li class="list-group-item">Teléfono: ${doc.data().telefono}</li>
                     <li class="list-group-item">Dirección: ${doc.data().direccion}</li>
+                    <li class="list-group-item">Coordenadas: ${doc.data().coordenadas.latitude}, ${doc.data().coordenadas.longitude} </li>
                 </ul>
             </div>
             `;
@@ -32,6 +34,31 @@ const configurarMenu = (user) => {
         listaloggedout.forEach( item => item.style.display='block');
     }
 };
+
+const obtieneAmigos = (data) => {
+
+    var propiedades = {
+        center: { 
+                lat: 21.152639, lng:  -101.711598
+        },
+        zoom: 13 
+    };
+    var mapa = document.getElementById("map");
+    var map = new google.maps.Map(mapa, propiedades);
+
+    data.forEach(doc => {
+        informacion = new google.maps.InfoWindow;
+        var pos = { 
+            lat: doc.data().coordenadas.latitude,
+            lng: doc.data().coordenadas.longitude
+        };
+        informacion.setPosition(pos);
+        informacion.setContent(doc.data().nombre);
+        informacion.open(map);
+    });
+ };
+
+
 
 const listadeplatillos = document.getElementById('listadeplatillos');
 const obtienePlatillos = (data) => {

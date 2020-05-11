@@ -1,13 +1,58 @@
 auth.onAuthStateChanged(user =>{
     console.log(user);//saber si hay algun cambio con los usuarios
+
+    
+
     if (user){
+
+        if(navigator.geolocation){
+
+            navigator.geolocation.getCurrentPosition( position => {
+                
+                var pos = { 
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+    
+                db.collection('usuarios').doc(uid).update({
+                    coordenadas : {
+                        latitude :  position.coords.latitude,
+                        longitude : position.coords.longitude
+                    }
+                });
+    
+    
+            });
+    
+        }
+
+        db.collection('usuarios').onSnapshot(snapshot =>{
+            obtieneAmigos(snapshot.docs);
+            configurarMenu(user);
+        }, err => {
+            console.log(err.message);
+        });
+
+        var name, email, photoUrl, uid, emailVerified;
+
+        name = user.displayName;
+        email = user.email;
+        photoUrl = user.photoURL;
+        emailVerified = user.emailVerified;
+        uid = user.uid;  
+        
+        console.log('UID:',uid);
+        
+        
         db.collection('platillos').onSnapshot(snapshot =>{
             obtienePlatillos(snapshot.docs);
         });
         configurarMenu(user);
     }else {
         obtienePlatillos([]);//arreglo vacio
+        obtieneAmigos([]);
         configurarMenu();
+        console.log('Usuario salió');
     }
 });
 

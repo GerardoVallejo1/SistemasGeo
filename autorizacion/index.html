@@ -36,6 +36,9 @@
                     <a class="nav-link logged-in" href="#" data-toggle="modal" data-target="#micuenta">Mi Cuenta</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link logged-in" href="#" data-toggle="modal" data-target="#misAmigos">Ver Amigos</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link logged-in" href="#" id="salir">Salir</a>
                 </li>
                 <li class="nav-item">
@@ -209,7 +212,7 @@
                     <div class="inicio-form">
                         <div class="card" style="width: 100%; text-align: center;">
                             <!--Card content-->
-                            <div class="card-body px-lg-5 pt-0 datosdelacuenta">
+                            <div class="card-body px-lg-5 pt-0 datosdelacuenta" id="map">
                                 
                             </div>
                         </div>
@@ -218,6 +221,21 @@
             </div>
         </div>
     </div>
+
+<!--     Modal Ver Amigos -->
+    <div class="modal fade" id="misAmigos" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header" style="justify-content: center;">
+              <h4 class="modal-title">Mis Amigos</h4>
+            </div>
+            <div class="modal-body">
+                <div class="fluid-container mapaamigos" id="map">
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <div class="fondo">
         <div class="container-fluid pizzas " style="padding: 15px 80px 20px 80px; ">
@@ -240,6 +258,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo" async defer></script>
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
     <script>
