@@ -1,15 +1,14 @@
 const listaloggedout = document.querySelectorAll('.logged-out');
 const listaloggedin = document.querySelectorAll('.logged-in');
 const datosdelacuenta = document.querySelector('.datosdelacuenta');
-const mapaamigos = document.querySelector('.mapaamigos');
 const titulo = document.querySelector('.titulo-fondo');
 const fondo = document.querySelector('.fondo');
+const listadeplatillos = document.getElementById('listadeplatillos');
 
 const configurarMenu = (user) => {
 
     if(user){
         db.collection('usuarios').doc(user.uid).get().then( doc=>{
-
             const html = `
             <div class="container-fluid text-center">
                 <h3 style="margin-top:10px">Datos de usuario</h3>
@@ -29,6 +28,7 @@ const configurarMenu = (user) => {
         titulo.style.display='none';
         fondo.style ='background: #E5E5E5;';
     }else {
+        datosdelacuenta.innerHTML='';
         fondo.style='background: linear-gradient(180deg, rgba(0,0,0,0.3225665266106442) 0%, rgba(0,0,0,0.3225665266106442) 48%, rgba(0,0,0,0.29175420168067223) 100%), url(imagenes/fondo.jpg);height: 92vh;background-size: cover;';
         listaloggedin.forEach( item => item.style.display='none');
         listaloggedout.forEach( item => item.style.display='block');
@@ -36,7 +36,6 @@ const configurarMenu = (user) => {
 };
 
 const obtieneAmigos = (data) => {
-
     var propiedades = {
         center: { 
                 lat: 21.152639, lng:  -101.711598
@@ -45,7 +44,6 @@ const obtieneAmigos = (data) => {
     };
     var mapa = document.getElementById("map");
     var map = new google.maps.Map(mapa, propiedades);
-
     data.forEach(doc => {
         informacion = new google.maps.InfoWindow;
         var pos = { 
@@ -53,19 +51,15 @@ const obtieneAmigos = (data) => {
             lng: doc.data().coordenadas.longitude
         };
         informacion.setPosition(pos);
-        informacion.setContent(doc.data().nombre);
+        informacion.setContent("<div style='text-align: center;'><img src='https://rciminternet.com/wp-content/uploads/2019/04/usuario.png' style='width:50px;'> <p style='margin: 0 0 0 0; font-weight: bold;'>"+ doc.data().nombre +"</p> <p style='margin: 0 0 0 0;'>"+doc.data().telefono+"</p> </div>");
         informacion.open(map);
     });
  };
 
-
-
-const listadeplatillos = document.getElementById('listadeplatillos');
 const obtienePlatillos = (data) => {
     if(data.length){
         let html = ``;
         data.forEach(doc=>{
-
             const platillo = doc.data();
             const columna = `
                 <div class="col-12 col-sm-6 col-lg-4">
@@ -87,14 +81,11 @@ const obtienePlatillos = (data) => {
                     </div>
                 </div>
             `;
-
             html += columna;
         });
-
         listadeplatillos.innerHTML = html;
     } else {
         listadeplatillos.innerHTML = ''
         titulo.style.display='block';
     }
-
 }
