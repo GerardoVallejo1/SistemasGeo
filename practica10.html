@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Position</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style2.css">
+    <style>
+        @media (max-width: 991px) {
+            #datos li {
+                font-size: 12px !important;
+            }
+
+            #datos h3 {
+                font-size: 20px !important;
+            }
+
+            #map {
+                margin-bottom: 20px !important;
+                width: 100% !important;
+                height: 250px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar-fixed-top">
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="index.html">Regresar</a></button>
+    </header>
+
+    <div class="container-fluid">
+        <div id="box" class="container bg-white">
+            <div class="row m-1">
+                <div class="col-12">
+                    <h1 class="text-center">Monitorea tu ubicación con Watch Position</h1>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 text-center">
+                            <div id="map"></div>
+                        </div>
+                        <div class="col-12 col-lg-6 text-center" style="margin-bottom: 15px;">
+                            <button type="button" class="btn btn-outline-info" style="width: 150px; margin-right: 15px;" id="boton">Watch Position</button>
+                            <button type="button" class="btn btn-outline-danger" style="width: 150px;" id="detener">Stop Watch</button>
+                            <div id="datos">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initMap() {
+
+            var propiedades = {
+                center: {
+                    lat: 21.152639, lng: -101.711598
+                },
+                zoom: 14
+            };
+
+            var mapa = document.getElementById("map");
+
+            var map = new google.maps.Map(mapa, propiedades);
+
+            var icono = {
+                url: "https://media.giphy.com/media/1ZweHMlSaxcc32mSSu/giphy.gif",
+                scaledSize: new google.maps.Size(25, 25),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(0, 0)
+            };
+
+            var marker = new google.maps.Marker({
+                position: { lat: 0, lng: 0 },
+                icon: icono,
+                map: map
+            });
+
+            var watchId = null;
+
+            const boton = document.getElementById('boton');
+
+            var positionOptions = {
+                enableHighAccuracy: true, //alta exactitud en los datos, false no da exactitud buena
+                timeOut: 10 * 1000, // 10 segundos
+                maximunAge: 30 * 1000, // 30 segundos 
+            };
+
+
+            if (navigator.geolocation) {
+
+                boton.addEventListener('click', function () {
+                    watchId = navigator.geolocation.watchPosition(function (position) {
+                        var lat = position.coords.latitude;
+                        var lng = position.coords.longitude;
+
+                        console.log(position);
+
+                        var coordenadas = lat + ',' + lng;
+                        var exactitud = position.coords.accuracy ? position.coords.accuracy : 'No disponible';
+                        var altitud = position.coords.altitude ? position.coords.altitude : 'No disponible';
+                        var velocidad = position.coords.speed ? position.coords.speed : 'No disponible';
+                        var fechayhora = (new Date(position.timestamp)).toString();
+
+
+                        const html = `
+                        <div class="container-fluid text-center">
+                            <h3 style="margin-top:10px">Datos de Usuario</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><span style='font-weight:bold'>Coordenadas:</span> ${ coordenadas}</li>
+                                <li class="list-group-item"><span style='font-weight:bold'>Exactitud:</span> ${ exactitud}</li>
+                                <li class="list-group-item"><span style='font-weight:bold'>Altitud:</span> ${ altitud}</li>
+                                <li class="list-group-item"><span style='font-weight:bold'>Velocidad:</span> ${ velocidad}</li>
+                                <li class="list-group-item"><span style='font-weight:bold'>Fecha y hora:</span> ${ fechayhora}</li>
+                            </ul>
+                        </div>
+                         `;
+
+                        const datos = document.getElementById('datos');
+                        datos.innerHTML = html;
+
+                        marker.setPosition(new google.maps.LatLng(lat, lng));
+                        map.panTo(new google.maps.LatLng(lat, lng));
+
+                    }, error, positionOptions);
+                });
+
+                const botondetener = document.getElementById('detener');
+
+                botondetener.addEventListener('click', function () {
+
+                    if (watchId !== null) {
+                        navigator.geolocation.clearWatch(watchId);
+
+                        const html = `
+                        <div class="container-fluid text-center">
+                            <h3 style="margin-top:10px">Datos de Usuario</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Se detuvo el monitoreo</li>
+                            </ul>
+                        </div>
+                         `;
+
+                        const datos = document.getElementById('datos');
+                        datos.innerHTML = html;
+                    }
+                });
+            }
+
+            function error(positioError) {
+                console.log(positioError.messsage);
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback=initMap"
+        type="text/javascript"></script>
+</body>
+
+</html>
