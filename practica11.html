@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maps Controllers</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style2.css">
+    <style>
+        #map,#map1,#map2,#map3,#map4,#map5,#map6 {
+            margin-bottom: 13px;
+            width: 100%;
+            height: 400px;
+        }
+
+        #box,.box {
+            box-shadow: 0px 7px 20px -3px rgba(0, 0, 0, 0.75) !important;
+        }
+
+        .card {
+            border: none !important;
+            background: #F3F3F3 !important;
+        }
+
+        .card-header {
+            background: #536C89 !important;
+            padding: 5px !important;
+        }
+
+        .card-header button {
+            background: #617D9E !important;
+            width: 100% !important;
+            text-decoration: none !important;
+            color: #fff !important;
+            font-size: 19px !important;
+        }
+
+        h1 {
+            margin-bottom: 0px !important;
+        }
+
+        #accordion {
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 750px) {
+            .card-header button {
+                font-size: 11px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar-fixed-top">
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="index.html">Regresar</a></button>
+    </header>
+
+    <div class="container-fluid">
+        <div id="box" class="container bg-white">
+            <div class="row m-1">
+                <div class="col-12">
+                    <h1 class="text-center">Tipos de controles Google Maps</h1>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne">
+                                        Mapa con controles estándar
+                                    </button>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 text-center">
+                                                <div id="map"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse"
+                                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Mapa sin controles
+                                    </button>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 text-center">
+                                                <div id="map1"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingThree">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse"
+                                        data-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        Mapa con zoom desactivado
+                                    </button>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 text-center">
+                                                <div id="map2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingFour">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse"
+                                        data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        Mapa con ControlOptions
+                                    </button>
+                                </div>
+                                <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 text-center">
+                                                <div id="map3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingFive">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse"
+                                        data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        Mapa con ControlPosition
+                                    </button>
+                                </div>
+                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 text-center">
+                                                <div id="map4"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingSix">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse"
+                                        data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        Mapa con Restricting MapBounds
+                                    </button>
+                                </div>
+                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 text-center">
+                                                <div id="map5"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initMap() {
+
+            var coordenadas = { lat: 21.152639, lng: -101.711598 };
+
+            var propiedades = {
+                center: coordenadas,
+                zoom: 13
+            };
+
+            var map = new google.maps.Map(document.getElementById('map'), propiedades);
+
+            var propiedades1 = {
+                center: coordenadas,
+                zoom: 13,
+                disableDefaultUI: true // deshabilitar la user interfcce
+            };
+
+            var map1 = new google.maps.Map(document.getElementById('map1'), propiedades1);
+
+            var propiedades2 = {
+                center: coordenadas,
+                zoom: 13,
+                zoomControl: false,
+                scaleControl: true //el escalamiento se realiza pero el zoom se desabilita 
+            };
+
+            var map2 = new google.maps.Map(document.getElementById('map2'), propiedades2);
+
+            var propiedades3 = {
+                center: coordenadas,
+                zoom: 13,
+                mapTypeControl: true,
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU, //menu deslizante para abajo
+                    mapTypeIds: ['roadmap', 'terrain', 'satellite']
+                }
+            };
+
+            var map3 = new google.maps.Map(document.getElementById('map3'), propiedades3);
+
+
+
+            var propiedades4 = {
+                center: coordenadas,
+                zoom: 12,
+                mapTypeControl: true,
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                    position: google.maps.ControlPosition.LEFT_TOP
+                },
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.TOP_CENTER
+                },
+                scaleControl: true,
+                streetViewControl: true,
+                streetViewControlOptions: {
+                    position: google.maps.ControlPosition.LEFT_CENTER
+                },
+                fullscreenControl: true
+
+            };
+            var mapa4 = new google.maps.Map(document.getElementById('map4'), propiedades4);
+
+
+            var limites = {
+                north: 42.017526,
+                south: 41.778913,
+                west: 12.357492,
+                east: 12.579457
+            }
+            var coordenadas1 = { lat: 41.8905834, lng: 12.4919932 };
+
+            var propiedades5 = {
+                center: coordenadas1,
+                zoom: 10,
+                restriction: {
+                    latLngBounds: limites,
+                    strictBounds: false
+                }
+            };
+
+            var mapa5 = new google.maps.Map(document.getElementById('map5'), propiedades5);
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback=initMap"
+        type="text/javascript"></script>
+</body>
+
+</html>
