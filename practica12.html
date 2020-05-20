@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maps Events</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+        html,
+        body {
+            margin: 0px;
+            padding: 0px;
+            font-family: 'Poppins', sans-serif;
+            background: #E5E5E5;
+        }
+
+        .mapas {
+            width: 100%;
+            height: 400px;
+        }
+
+        #box {
+            box-shadow: 0px 7px 20px -3px rgba(0, 0, 0, 0.75) !important;
+            padding: 0 !important;
+        }
+
+        header {
+            background: #41556C;
+            height: 70px;
+            box-shadow: 3px 0px 22px 0px rgba(0, 0, 0, 0.7);
+        }
+
+        header a {
+            text-decoration: none !important;
+            color: #fff;
+            padding: 7px 10px 7px 10px;
+        }
+
+        header a:hover {
+            color: #41556C !important;
+        }
+
+        header button {
+            margin: 16px 15px 0px 0px !important;
+            padding: 5px 0px 5px 0px !important;
+            float: right;
+        }
+
+        header h2 {
+            position: absolute;
+            font-size: 21px;
+            color: #fff;
+            margin: 23px 0px 0px 16px;
+        }
+
+        .container-fluid {
+            max-width: 1160px !important;
+            margin-top: 50px !important;
+        }
+
+        h5 {
+            font-weight: bold;
+            font-size: 30px !important;
+            color: #fff; 
+            text-shadow: 0 0 1.2em #000, 0 0 1.2em #000,
+		0 0 0.2em #000;
+        }
+
+        @media (max-width: 768px) {
+            header h2 {
+                font-size: 14px;
+                margin: 27px 0px 27px 10px;
+            }
+
+            h5 {
+                font-size: 15px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar-fixed-top">
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="index.html">Regresar</a></button>
+    </header>
+
+    <div class="container-fluid">
+        <div id="box" class="container bg-white">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="mapas" id="map"></div>
+                        <div class="carousel-caption d-md-block">
+                            <h5>Evento Click en Mapa</h5>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="mapas" id="map1"></div>
+                        <div class="carousel-caption d-md-block">
+                            <h5>Regresa al centro</h5>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="mapas" id="map2"></div>
+                        <div class="carousel-caption d-md-block">
+                            <h5>Mostar nivel zoom</h5>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="mapas" id="map3"></div>
+                        <div class="carousel-caption d-md-block">
+                            <h5>Marcador y centrado</h5>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="mapas" id="map4"></div>
+                        <div class="carousel-caption d-md-block">
+                            <h5>Coordenadas con click</h5>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="mapas" id="map5"></div>
+                        <div class="carousel-caption d-md-block">
+                            <h5>addDomListener</h5>
+                            <button class="btn btn-info" id="btnCentrar" style="padding: 4px 5px 4px 5px !important;">Centrar Mapa</button>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function initMap() {
+
+            var coordenadas = { lat: 41.8905834, lng: 12.4919932 };
+
+            var propiedades = {
+                center: coordenadas,
+                zoom: 9
+            };
+
+            /*Mapa 1*/
+            var mapa = new google.maps.Map(document.getElementById('map'), propiedades);
+
+            var marker = new google.maps.Marker({
+                position: coordenadas,
+                map: mapa
+            });
+
+            marker.addListener('click', function () {
+                mapa.setZoom(12);
+                mapa.setCenter(marker.getPosition());
+            });
+
+            /*Mapa 2*/
+            var mapa1 = new google.maps.Map(document.getElementById('map1'), propiedades);
+
+            var marker1 = new google.maps.Marker({
+                position: coordenadas,
+                map: mapa1
+            });
+
+            mapa1.addListener('center_changed', function () {
+                window.setTimeout(function () {
+                    mapa1.panTo(marker1.getPosition());
+                }, 4000);
+            });
+
+            /*Mapa 3*/
+            var mapa2 = new google.maps.Map(document.getElementById('map2'), propiedades);
+
+            var infowindow = new google.maps.InfoWindow({
+                content: 'Modifica Zoom',
+                position: coordenadas
+            });
+
+            infowindow.open(mapa2);
+            mapa2.addListener('zoom_changed', function () {
+                infowindow.setContent('Zoom: ' + mapa2.getZoom());
+            });
+
+            /*Mapa 4*/
+            var mapa3 = new google.maps.Map(document.getElementById('map3'), propiedades);
+
+            mapa3.addListener('click', function (e) {
+                estableceMarcador(e.latLng);
+            });
+
+            function estableceMarcador(latLng) {
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: mapa3
+                });
+                mapa3.panTo(latLng);
+            }
+
+            /*Mapa 5*/
+            var mapa4 = new google.maps.Map(document.getElementById('map4'), propiedades);
+
+            var infowindow = new google.maps.InfoWindow({
+                content: 'Haz click para obtener las coordenadas',
+                position: coordenadas
+            });
+
+            infowindow.open(mapa4);
+
+            mapa4.addListener('click', function (evento) {
+                infowindow.close();
+
+                infowindow = new google.maps.InfoWindow({ position: evento.latLng });
+                infowindow.setContent(evento.latLng.toString());
+                infowindow.open(mapa4);
+
+            });
+
+            /* Mapa 6 */
+
+            var mapa5 = new google.maps.Map(document.getElementById('map5'), propiedades);
+
+            google.maps.event.addDomListener(mapa5, 'click', function () {
+                window.alert(' Se hizo click en el mapa');
+            });
+
+            var boton = document.getElementById('btnCentrar');
+            google.maps.event.addDomListener(boton, 'click', function () {
+                mapa5.panTo(coordenadas);
+            });
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&callback=initMap"
+        type="text/javascript"></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOsjH9R15dfP9Yn67vFmd5KNuq4wKV958&callback=initMap"
+        async defer></script>
+
+</body>
+
+</html>
