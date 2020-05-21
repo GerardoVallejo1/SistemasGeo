@@ -68,6 +68,14 @@
             color: #fff;
             text-shadow: 0 0 27px #000, 0 0 17px #000, 0 0 30px #000;
         }
+        
+        #a {
+            width: 44px !important;
+            height: 45px !important;
+            margin: 219px 0px 230px 0px !important;
+            background: rgba(149, 150, 150, 0.5) !important;
+            border-radius: 34px !important;
+        }
 
         @media (max-width: 768px) {
             header h2 {
@@ -139,11 +147,11 @@
                         </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <a id="a" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <a id="a" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
@@ -220,19 +228,19 @@
             /*Mapa 5*/
             var mapa4 = new google.maps.Map(document.getElementById('map4'), propiedades);
 
-            var infowindow = new google.maps.InfoWindow({
+            var infowindow1 = new google.maps.InfoWindow({
                 content: 'Haz click para obtener las coordenadas',
                 position: coordenadas
             });
 
-            infowindow.open(mapa4);
+            infowindow1.open(mapa4);
 
             mapa4.addListener('click', function (evento) {
-                infowindow.close();
+                infowindow1.close();
 
-                infowindow = new google.maps.InfoWindow({ position: evento.latLng });
-                infowindow.setContent(evento.latLng.toString());
-                infowindow.open(mapa4);
+                infowindow1 = new google.maps.InfoWindow({ position: evento.latLng });
+                infowindow1.setContent(evento.latLng.toString());
+                infowindow1.open(mapa4);
 
             });
 
