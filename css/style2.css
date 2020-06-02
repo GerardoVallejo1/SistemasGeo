@@ -7,7 +7,7 @@ html, body {
     background: #E5E5E5;
 }
 
-#map {
+#map, #map1 {
     margin-bottom: 13px;
     width: 100%;
     height: 400px;
