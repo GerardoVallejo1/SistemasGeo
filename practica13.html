@@ -50,7 +50,7 @@
                                 <option value="store">Tienda</option>
                             </select>
                             <div class="container-fluid text-center">
-                                <ul class="list-group list-group-flush" id="places">
+                                <ul class="list-group list-group-flush" id="placesList"></ul>
 
                                 </ul>
                             </div>
@@ -109,7 +109,7 @@
 
             var bounds = new google.maps.LatLngBounds();
             console.log(places);
-            
+
             borraMarcadores();
             for( var i=0, place ; place = places[i]; i ++ ){
                 var marker = new google.maps.Marker({
