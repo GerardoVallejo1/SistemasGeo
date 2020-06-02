@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geocoding</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style2.css">
+    <style>
+        .mapas{
+            margin-bottom: 13px;
+            width: 100%;
+            height: 400px;
+        }
+
+        #box {
+            box-shadow: 0px 7px 20px -3px rgba(0, 0, 0, 0.75) !important;
+        }
+
+        .card {
+            border: none !important;
+            background: #F3F3F3 !important;
+        }
+
+        .card-header {
+            background: #536C89 !important;
+            padding: 5px !important;
+        }
+
+        .card-header button {
+            background: #617D9E !important;
+            width: 100% !important;
+            text-decoration: none !important;
+            color: #fff !important;
+            font-size: 19px !important;
+        }
+
+        h1 {
+            margin-bottom: 0px !important;
+        }
+
+        #accordion {
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 750px) {
+            .card-header button {
+                font-size: 11px !important;
+            }
+
+            .form-control {
+                font-size: 12px !important;
+            }
+
+            #btnBuscar1, #btnBuscar {
+                font-size: 12px !important;
+                margin: 10px 0 0 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar-fixed-top">
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="index.html">Regresar</a></button>
+    </header>
+
+    <div class="container-fluid">
+        <div id="box" class="container bg-white">
+            <div class="row m-1">
+                <div class="col-12">
+                    <h1 class="text-center">Google Maps Geocoding</h1>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne">
+                                        Geocoding
+                                    </button>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6 text-center">
+                                                <div id="map"></div>
+                                            </div>
+                                            <div class="col-12 col-lg-6 text-center" style="margin-bottom: 15px;">
+                                                <div class="row">
+                                                    <div class="col-12 col-lg-8 text-center">
+                                                        <input type="text" id="domicilio" name="domicilio" class="form-control" autocomplete="off" placeholder="Ingrese un domicilio o algun lugar">
+                                                    </div>
+
+                                                    <div class="col-12 col-lg-4 text-center">
+                                                        <button type="button" class="btn btn-outline-info" id="btnBuscar">Buscar</button>
+                                                    </div>
+                                                </div>
+                                                <div class="container-fluid text-center">
+                                                    <ul class="list-group list-group-flush">
+                                                    </ul>
+                                                </div>
+                                                <div class="container-fluid text-center">
+                                                    <ul class="list-group list-group-flush" id="resultados">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse"
+                                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Reverse Geocoding
+                                    </button>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6 text-center">
+                                                <div id="map1"></div>
+                                            </div>
+                                            <div class="col-12 col-lg-6 text-center" style="margin-bottom: 15px;">
+                                                <div class="row">
+                                                    <div class="col-12 col-lg-8 text-center">
+                                                        <input type="text" id="latitudlongitud" name="latitudlongitud" class="form-control" autocomplete="off" placeholder="Ingrese coordenadas o un lugar">
+                                                    </div>
+
+                                                    <div class="col-12 col-lg-4 text-center">
+                                                        <button type="button" class="btn btn-outline-info" id="btnBuscar1">Buscar</button>
+                                                    </div>
+                                                </div>
+                                                <div class="container-fluid text-center">
+                                                    <ul class="list-group list-group-flush" id="resultados1">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+        var map;
+
+
+        function initMap(){
+
+
+            var coordenadas = {  lat: 21.152639, lng:  -101.711598 };
+
+            var propiedades = {
+                center: coordenadas,
+                zoom: 12
+            };
+
+            map = new google.maps.Map(document.getElementById('map'),propiedades);
+
+            var btnBuscar = document.getElementById('btnBuscar');
+
+            btnBuscar.addEventListener('click', function(){
+
+                var domicilio = document.getElementById('domicilio').value;
+                console.log(domicilio);
+
+                geocoder = new google.maps.Geocoder();
+
+                geocoder.geocode( { 'address': domicilio, region: 'Guanajuato' }, function( results, status ){
+                    
+                    if(status == 'OK')
+                    {
+                        console.log(results);
+                        var resultados = document.getElementById('resultados');
+                        resultados.innerHTML = `
+                            <li class="list-group-item"><span style='font-weight:bold'>Coordenadas:</span> ${  results[0].geometry.location }</li>
+                            <li class="list-group-item"><span style='font-weight:bold'>Detalles:</span> ${ results[0].formatted_address} </li>
+                        `;
+                        map.setCenter(results[0].geometry.location);
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location
+                        });
+                    }
+                    else
+                    {
+                        alert('Geocode no se ejecuto con éxito.');
+                    }
+                });
+            });
+            var map2; 
+            
+            map2 = new google.maps.Map(document.getElementById('map1'),propiedades);
+            var btnBuscar2 = document.getElementById('btnBuscar1');
+            btnBuscar2.addEventListener('click', function(){
+
+                var latitudlongitud = document.getElementById('latitudlongitud').value;
+
+                var latlngStr = latitudlongitud.split(',',2);
+
+                var latlng = {  lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+
+                console.log(latlng);
+
+                geocoder = new google.maps.Geocoder();
+
+                geocoder.geocode({ 'location': latlng }, function(results, status){
+
+                    if(status == 'OK')
+                    {
+                        var resultados2 = document.getElementById('resultados1');
+                        resultados2.innerHTML = `
+                            <li class="list-group-item"><span style='font-weight:bold'>Detalles:</span> ${ results[0].formatted_address} </li>
+                        `;
+                        map2.setCenter(results[0].geometry.location);
+                        var marker = new google.maps.Marker({
+                            map: map2,
+                            position: results[0].geometry.location
+                        });
+                    }
+                    else
+                    {
+                        alert('Geocode no se ejecuto con éxito.');
+                    }
+                });
+            });
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&libraries=places&callback=initMap"
+        type="text/javascript"></script>
+</body>
+
+</html>
