@@ -9,6 +9,13 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style2.css">
     <style>
+        .list-group {
+            max-height: 300px;
+            margin-bottom: 10px;
+            overflow: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+
         @media (max-width: 991px) {
             #datos li {
                 font-size: 12px !important;
@@ -50,8 +57,8 @@
                                 <option value="store">Tienda</option>
                             </select>
                             <div class="container-fluid text-center">
-                                <ul class="list-group list-group-flush" id="placesList"></ul>
-
+                                <ul class="list-group list-group-flush" id="placesList">
+                                    
                                 </ul>
                             </div>
                         </div>
@@ -65,31 +72,31 @@
         var map;
         var markers = [];
 
-        function initMap(){
-            var coordenadas = {  lat: 21.152639, lng:  -101.711598 };
+        function initMap() {
+            var coordenadas = { lat: 21.152639, lng: -101.711598 };
             var propiedades = {
                 center: coordenadas,
                 zoom: 12
             };
-            map = new google.maps.Map(document.getElementById('map'),propiedades);
+            map = new google.maps.Map(document.getElementById('map'), propiedades);
             muestraLugares();
         }
 
         var tipo = document.getElementById('tipo');
         var valor;
 
-        tipo.addEventListener('change', function(){
+        tipo.addEventListener('change', function () {
 
             valor = this.options[tipo.selectedIndex].value;
             muestraLugares();
         });
 
-        function muestraLugares(){
+        function muestraLugares() {
 
-            if(navigator.geolocation){
+            if (navigator.geolocation) {
 
-                navigator.geolocation.getCurrentPosition( posicion => {
-                    
+                navigator.geolocation.getCurrentPosition(posicion => {
+
                     var coordenadas = {
                         lat: posicion.coords.latitude,
                         lng: posicion.coords.longitude
@@ -97,34 +104,34 @@
 
                     var service = new google.maps.places.PlacesService(map);
 
-                    service.nearbySearch({ location: coordenadas, radius: 1000, type: [valor]}, function( results, status, pagination){//traer todos los lugares cerca de mi ubicacion
-                        if(status !== 'OK') return;
-                        crearMarcadores(results); 
+                    service.nearbySearch({ location: coordenadas, radius: 1000, type: [valor] }, function (results, status, pagination) {//traer todos los lugares cerca de mi ubicacion
+                        if (status !== 'OK') return;
+                        crearMarcadores(results);
                     });
                 });
             }
         }
 
-        function crearMarcadores(places){
+        function crearMarcadores(places) {
 
             var bounds = new google.maps.LatLngBounds();
             console.log(places);
 
             borraMarcadores();
-            for( var i=0, place ; place = places[i]; i ++ ){
+            for (var i = 0, place; place = places[i]; i++) {
                 var marker = new google.maps.Marker({
                     map: map,
-                    title: '<strong>' + place.name + '</strong>,' + place.vicinity ,
+                    title: '<strong>' + place.name + '</strong>,' + place.vicinity,
                     position: place.geometry.location
                 });
                 markers.push(marker);
-                google.maps.event.addListener(marker, 'mouseover', function(){
+                google.maps.event.addListener(marker, 'mouseover', function () {
                     var infowindow = new google.maps.InfoWindow({
-                        content : this.title,
-                        position : this.position
+                        content: this.title,
+                        position: this.position
                     });
                     infowindow.open(map);
-                    setTimeout( function(){ infowindow.close(); }, 3000);
+                    setTimeout(function () { infowindow.close(); }, 3000);
                 });
                 var li = document.createElement('li');
                 li.className = "list-group-item";
@@ -135,12 +142,11 @@
             map.fitBounds(bounds);
         }
 
-        function borraMarcadores(){
-            for ( var i =0; i < markers.length; i++)
-            {
+        function borraMarcadores() {
+            for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(null);
             };
-            while( placesList.hasChildNodes()){
+            while (placesList.hasChildNodes()) {
                 placesList.removeChild(placesList.firstChild);
             }
         }
