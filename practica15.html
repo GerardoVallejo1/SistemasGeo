@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Googel Maps Shapes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style2.css">
+    <style>
+        .list-group {
+            max-height: 300px;
+            margin-bottom: 10px;
+            overflow: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        @media (max-width: 991px) {
+            #datos li {
+                font-size: 12px !important;
+            }
+
+            #datos h3 {
+                font-size: 20px !important;
+            }
+
+            #map {
+                margin-bottom: 20px !important;
+                width: 100% !important;
+                height: 250px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar-fixed-top">
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="index.html">Regresar</a></button>
+    </header>
+
+    <div class="container-fluid">
+        <div id="box" class="container bg-white">
+            <div class="row m-1">
+                <div class="col-12">
+                    <h1 class="text-center">Shapes en mapas</h1>
+                    <div class="row">
+                        <div class="col-12 col-lg-6 text-center">
+                            <div id="map"></div>
+                        </div>
+                        <div class="col-12 col-lg-6 text-center" style="margin-bottom: 15px;">
+                            <div class="container-fluid text-center">
+                                <h1>Cuidades de México más pobladas</h1>
+                                <ul class="list-group list-group-flush" id="placesList">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var map;
+
+        function initMap() {
+            var coordenadas = { lat: 21.152639, lng: -101.711598 };
+            var propiedades = {
+                center: coordenadas,
+                zoom: 6,
+                mapTypeId: 'terrain'
+            };
+            map = new google.maps.Map(document.getElementById('map'), propiedades);
+        }
+
+        fetch('municipios.json').then(function (response) {
+
+            response.json().then(function (municipios) {
+            var datos = document.getElementById('datos');
+            var tabla = `
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">Municipio</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Habitantes</th>
+                        </tr>
+                        </thead>
+                    <tbody>
+            `;  
+
+
+                    var coordenadasVuelos = [];
+
+                    municipios.forEach(municipio => {
+
+
+                        coordenadasVuelos.push(municipio.coordenadas);
+
+                        var municipioCirculo = new google.maps.Circle({
+                            strokeColor: '#FF0000',
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: '#FF0000',
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: municipio.coordenadas,
+                            radius: Math.sqrt(municipio.habitantes) * 10
+                        });
+
+                        tabla += `
+                <tr>
+                  <th scope="row">${ municipio.nombre}</th>
+                  <td>${ municipio.estado}</td>
+                  <td>${ municipio.habitantes}</td>
+                </tr>
+              `;
+
+
+                    });
+
+                    var vuelosTrazo = new google.maps.Polyline({
+                        path: coordenadasVuelos,
+                        geodesic: true,
+                        strokeColor: '#CCCCCC',
+                        strokeOpacity: 0.5,
+                        strokeColor: 1
+                    });
+
+                    vuelosTrazo.setMap(map);
+
+                    tabla += `  
+                </tbody>
+                </table>`;
+
+                    datos.innerHTML = tabla;
+
+                });
+            });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBL_rCP3lkgspRRE29-Nx8N9yvdcoqvRo&libraries=places&callback=initMap"
+        type="text/javascript"></script>
+</body>
+
+</html>
