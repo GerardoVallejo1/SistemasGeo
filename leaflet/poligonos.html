@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uso de Poligonos</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <link rel="stylesheet" href="../css/style2.css">
+    <style>
+        #mapid {
+            margin-bottom: 13px;
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="navbar-fixed-top">
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="../index-5.html">Regresar</a></button>
+    </header>
+
+    <div class="container-fluid">
+        <div id="box" class="container bg-white">
+            <div class="row m-1">
+                <div class="col-12">
+                    <h1 class="text-center">Uso de Polígonos</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-8 col-sm-10 text-center">
+                            <input type="text" id="nodos" name="" class="form-control" autocomplete="off"
+                                placeholder="Ingrese cantidad de nodos">
+                        </div>
+
+                        <div class="col-4 col-sm-2 text-center">
+                            <button type="button" class="btn btn-outline-info" onclick="trazo()">Aplicar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <div id="mapid" class="mapas"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var nodos = 0;
+        var arreglo = [];
+
+        var mymap = L.map('mapid').setView([21.152639, -101.711598], 15);
+
+        const tilesProvider = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
+
+        L.tileLayer(tilesProvider, {
+            maxZoom: 17,
+        }).addTo(mymap)
+
+        mymap.doubleClickZoom.disable()
+
+        mymap.on('click', function (e) {
+            let latLng = mymap.mouseEventToLatLng(e.originalEvent)
+            L.marker([latLng.lat, latLng.lng]).addTo(mymap)
+
+            arreglo.push(latLng);
+            if (arreglo.length >= nodos) {
+                var poligono = L.polygon(arreglo).addTo(mymap);
+                arreglo = [];
+            }
+        })
+
+        function trazo() {
+            let n = document.getElementById('nodos');
+            nodos = parseInt(n.value);
+            n.value = '';
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

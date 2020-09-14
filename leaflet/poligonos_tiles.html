@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenStreetMap's</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <link rel="stylesheet" href="../css/style2.css">
+    <style>
+        .mapas {
+            margin-bottom: 13px;
+            width: 100%;
+            height: 400px;
+        }
+
+        #box {
+            box-shadow: 0px 7px 20px -3px rgba(0, 0, 0, 0.75) !important;
+        }
+
+        .card {
+            border: none !important;
+            background: #F3F3F3 !important;
+        }
+
+        .card-header {
+            background: #536C89 !important;
+            padding: 5px !important;
+        }
+
+        .card-header button {
+            background: #617D9E !important;
+            width: 100% !important;
+            text-decoration: none !important;
+            color: #fff !important;
+            font-size: 19px !important;
+        }
+
+        h1 {
+            margin-bottom: 0px !important;
+        }
+
+        #accordion {
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 750px) {
+            .card-header button {
+                font-size: 11px !important;
+            }
+
+            .form-control {
+                font-size: 12px !important;
+            }
+
+            #btnBuscar1,
+            #btnBuscar {
+                font-size: 12px !important;
+                margin: 10px 0 0 0 !important;
+            }
+
+            #titulo1 {
+                font-size: 18px !important;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="navbar-fixed-top">
+        <h2>Sistemas Geo-referenciados</h2>
+        <button type="button" class="btn btn-outline-light"><a href="../index-5.html">Regresar</a></button>
+    </header>
+
+    <div class="container-fluid">
+        <div id="box" class="container bg-white">
+            <div class="row m-1">
+                <div class="col-12">
+                    <h1 class="text-center">Examen Primer Parcial</h1>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-8 col-sm-10 text-center">
+                                <input type="text" id="nodos" name="" class="form-control" autocomplete="off" placeholder="Ingrese cantidad de nodos">
+                            </div>
+
+                            <div class="col-4 col-sm-2 text-center">
+                                <button type="button" class="btn btn-outline-info" onclick="trazo()">Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 mt-3">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <div id="mapid" class="mapas"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <div id="mapid2" class="mapas"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var nodos = 0;
+        var arreglo = [];
+        var arregloTipo = [
+            'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+            'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
+            'https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=NzMDTwX9cnkOlihlM83R'
+        ];
+        var random = Math.floor(Math.random() * arregloTipo.length);
+
+        var mymap = L.map('mapid').setView([21.152639, -101.711598], 15);
+        var mymap2 = L.map('mapid2').setView([21.152639, -101.711598], 15);
+
+        var TipoMapa = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+        L.tileLayer(TipoMapa, {
+            maxZoom: 18
+        }).addTo(mymap);
+
+        L.tileLayer(TipoMapa, {
+            maxZoom: 18
+        }).addTo(mymap2);
+
+
+
+        mymap2.doubleClickZoom.disable();
+        mymap.doubleClickZoom.disable();
+
+        mymap.on('click', function (e) {
+            let latLng = mymap.mouseEventToLatLng(e.originalEvent)
+            L.marker([latLng.lat, latLng.lng]).addTo(mymap)
+            arreglo.push(latLng);
+
+            if (arreglo.length >= nodos) {
+
+                arreglo.forEach(element => {
+                    L.marker(element).addTo(mymap2);
+                    L.polygon(element).addTo(mymap2);
+                });
+                var poligono = L.polygon(arreglo).addTo(mymap);
+                alert(arreglo);
+
+
+                arreglo = [];
+
+            }
+        })
+
+        function trazo() {
+            let n = document.getElementById('nodos');
+
+            nodos = parseInt(n.value);
+
+
+            if (nodos >= 10) {
+                if (random == 0) {
+                    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
+                        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                        maxZoom: 18
+                    }).addTo(mymap);
+                }
+                if (random == 1) {
+                    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+                        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                        maxZoom: 18
+                    }).addTo(mymap);
+                }
+                if (random == 2) {
+                    L.tileLayer('https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=NzMDTwX9cnkOlihlM83R', {
+                        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                        maxZoom: 18
+                    }).addTo(mymap);
+                }
+
+
+            }
+            n.value = '';
+
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
